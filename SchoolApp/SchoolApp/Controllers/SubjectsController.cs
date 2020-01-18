@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,24 +10,22 @@ using SchoolApp.Models;
 
 namespace SchoolApp.Controllers
 {
-    public class GradesController : Controller
+    public class SubjectsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public GradesController(ApplicationDbContext context)
+        public SubjectsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        // GET: Subjects
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Grade
-                .Include(g => g.Student)
-                .Include(g => g.Subject);
-
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Subject.ToListAsync());
         }
 
+        // GET: Subjects/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,43 +33,39 @@ namespace SchoolApp.Controllers
                 return NotFound();
             }
 
-            var grade = await _context.Grade
-                .Include(g => g.Student)
-                .Include(g => g.Subject)
+            var subject = await _context.Subject
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (grade == null)
+            if (subject == null)
             {
                 return NotFound();
             }
 
-            return View(grade);
+            return View(subject);
         }
 
+        // GET: Subjects/Create
         public IActionResult Create()
         {
-            ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Display");
-            ViewData["SubjectId"] = new SelectList(_context.Subject, "Id", "Display");
-
             return View();
         }
 
+        // POST: Subjects/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,GradeValue,Description,Date,StudentId,SubjectId")] Grade grade)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Range")] Subject subject)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(grade);
+                _context.Add(subject);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Display", grade.StudentId);
-            ViewData["SubjectId"] = new SelectList(_context.Subject, "Id", "Display", grade.SubjectId);
-
-            return View(grade);
+            return View(subject);
         }
 
+        // GET: Subjects/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,23 +73,22 @@ namespace SchoolApp.Controllers
                 return NotFound();
             }
 
-            var grade = await _context.Grade.FindAsync(id);
-            if (grade == null)
+            var subject = await _context.Subject.FindAsync(id);
+            if (subject == null)
             {
                 return NotFound();
             }
-
-            ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Display", grade.StudentId);
-            ViewData["SubjectId"] = new SelectList(_context.Subject, "Id", "Display", grade.SubjectId);
-
-            return View(grade);
+            return View(subject);
         }
 
+        // POST: Subjects/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,GradeValue,Description,Date,StudentId,SubjectId")] Grade grade)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Range")] Subject subject)
         {
-            if (id != grade.Id)
+            if (id != subject.Id)
             {
                 return NotFound();
             }
@@ -105,12 +97,12 @@ namespace SchoolApp.Controllers
             {
                 try
                 {
-                    _context.Update(grade);
+                    _context.Update(subject);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GradeExists(grade.Id))
+                    if (!SubjectExists(subject.Id))
                     {
                         return NotFound();
                     }
@@ -121,13 +113,10 @@ namespace SchoolApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Display", grade.StudentId);
-            ViewData["SubjectId"] = new SelectList(_context.Subject, "Id", "Display", grade.SubjectId);
-
-            return View(grade);
+            return View(subject);
         }
 
+        // GET: Subjects/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,31 +124,30 @@ namespace SchoolApp.Controllers
                 return NotFound();
             }
 
-            var grade = await _context.Grade
-                .Include(g => g.Student)
-                .Include(g => g.Subject)
+            var subject = await _context.Subject
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (grade == null)
+            if (subject == null)
             {
                 return NotFound();
             }
 
-            return View(grade);
+            return View(subject);
         }
 
+        // POST: Subjects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var grade = await _context.Grade.FindAsync(id);
-            _context.Grade.Remove(grade);
+            var subject = await _context.Subject.FindAsync(id);
+            _context.Subject.Remove(subject);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GradeExists(int id)
+        private bool SubjectExists(int id)
         {
-            return _context.Grade.Any(e => e.Id == id);
+            return _context.Subject.Any(e => e.Id == id);
         }
     }
 }

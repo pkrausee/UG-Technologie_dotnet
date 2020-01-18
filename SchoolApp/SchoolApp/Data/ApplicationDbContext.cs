@@ -9,23 +9,30 @@ namespace SchoolApp.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+
+        public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
         }
 
         public DbSet<Grade> Grade { get; set; }
+        public DbSet<Student> Student { get; set; }
+        public DbSet<Subject> Subject { get; set; }
 
-        /*
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modeluilder);
-            modelBuilder.Entity<Book>()
-                .HasOne(p => p.Author)
-                .WithMany(b => b.Books)
-                .HasForeignKey(p => p.AuthorId);
-            modelBuilder.Entity<AppAuthor>().HasNoKey();
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Grade>()
+                .HasOne(g => g.Student)
+                .WithMany(s => s.Grades)
+                .HasForeignKey(g => g.StudentId);
+
+            modelBuilder.Entity<Grade>()
+                .HasOne(g => g.Subject)
+                .WithMany(s => s.Grades)
+                .HasForeignKey(g => g.SubjectId);
         }
-        */
+
     }
 }

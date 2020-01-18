@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SchoolApp.Models.Grade>
+
+@{
+    ViewData["Title"] = "Show";
+}
+
+Grades of @ViewBag.Student
+<table class="table table-dark table-hover">
+    <thead>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GradeValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GradeValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject.Name)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,14 @@
+﻿@model SchoolApp.Models.Student
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-action="Show" method="get" class="selectSize">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <select asp-for="Id" class="form-control mdb-select md-form" asp-items="ViewBag.Student"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Show" class="defaultButton" />
+    </div>
+</form>
