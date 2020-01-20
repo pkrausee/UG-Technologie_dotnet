@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using SchoolApp.Models;
 
 namespace SchoolApp.Controllers
 {
+    [Authorize]
     public class SubjectsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -44,6 +46,7 @@ namespace SchoolApp.Controllers
         }
 
         // GET: Subjects/Create
+        [Authorize(Roles = "Administrator, Teacher")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +57,7 @@ namespace SchoolApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Range")] Subject subject)
         {
             if (ModelState.IsValid)
@@ -66,6 +70,7 @@ namespace SchoolApp.Controllers
         }
 
         // GET: Subjects/Edit/5
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +91,7 @@ namespace SchoolApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Range")] Subject subject)
         {
             if (id != subject.Id)
@@ -117,6 +123,7 @@ namespace SchoolApp.Controllers
         }
 
         // GET: Subjects/Delete/5
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +144,7 @@ namespace SchoolApp.Controllers
         // POST: Subjects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var subject = await _context.Subject.FindAsync(id);
@@ -145,6 +153,7 @@ namespace SchoolApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Administrator, Teacher")]
         private bool SubjectExists(int id)
         {
             return _context.Subject.Any(e => e.Id == id);

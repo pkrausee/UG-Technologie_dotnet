@@ -11,6 +11,7 @@ using SchoolApp.Models;
 
 namespace SchoolApp.Controllers
 {
+    [Authorize]
     public class GradesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -29,6 +30,7 @@ namespace SchoolApp.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +50,7 @@ namespace SchoolApp.Controllers
             return View(grade);
         }
 
+        [Authorize(Roles = "Administrator, Teacher")]
         public IActionResult Create()
         {
             ViewData["StudentId"] = new SelectList(_context.Student, "Id", "Display");
@@ -58,6 +61,7 @@ namespace SchoolApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Create([Bind("Id,GradeValue,Description,Date,StudentId,SubjectId")] Grade grade)
         {
             if (ModelState.IsValid)
@@ -73,6 +77,7 @@ namespace SchoolApp.Controllers
             return View(grade);
         }
 
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,6 +99,7 @@ namespace SchoolApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,GradeValue,Description,Date,StudentId,SubjectId")] Grade grade)
         {
             if (id != grade.Id)
@@ -128,6 +134,7 @@ namespace SchoolApp.Controllers
             return View(grade);
         }
 
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -149,6 +156,7 @@ namespace SchoolApp.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var grade = await _context.Grade.FindAsync(id);
@@ -157,6 +165,7 @@ namespace SchoolApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Administrator, Teacher")]
         private bool GradeExists(int id)
         {
             return _context.Grade.Any(e => e.Id == id);

@@ -59,6 +59,7 @@ namespace SchoolApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
 
@@ -68,7 +69,7 @@ namespace SchoolApp
         private static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
         {
             const string adminRoleName = "Administrator";
-            string[] roleNames = { adminRoleName, "User", "Manager" };
+            string[] roleNames = { adminRoleName, "Guest", "Teacher" };
 
             foreach (var roleName in roleNames)
             {

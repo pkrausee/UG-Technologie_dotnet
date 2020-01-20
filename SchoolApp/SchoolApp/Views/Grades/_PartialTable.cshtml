@@ -1,0 +1,25 @@
+﻿@model SchoolApp.Models.Grade
+
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.GradeValue)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Student.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Subject.Description)
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@Model.Id" bold>Edit</a> |
+        <a asp-action="Details" asp-route-id="@Model.Id" bold>Details</a> |
+        <a asp-action="Delete" asp-route-id="@Model.Id" bold red>Delete</a>
+    </td>
+</tr>
