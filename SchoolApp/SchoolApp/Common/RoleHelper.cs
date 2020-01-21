@@ -36,30 +36,26 @@ namespace SchoolApp.Common
 
             if (user == null)
             {
-                if (await userManager.FindByEmailAsync("admin@admin.pl") == null)
+                if (await userManager.FindByEmailAsync("admin@admin.pl") != null)
                 {
-                    var newUser = new IdentityUser
-                    {
-                        Email = "admin@admin.pl",
-                        UserName = "admin@admin.pl"
-                    };
+                    return;
+                }
 
-                    var createResult = await userManager.CreateAsync(newUser, "Admin123.");
+                var newUser = new IdentityUser
+                {
+                    Email = "admin@admin.pl",
+                    UserName = "admin@admin.pl"
+                };
 
-                    if (createResult.Succeeded)
-                    {
-                        user = newUser;
-                    }
-                    else
-                    {
-                        throw new Exception("Something went wrong with Admin creation :(");
-                    }
+                var createResult = await userManager.CreateAsync(newUser, "Admin123.");
 
-                    await userManager.AddToRoleAsync(user, adminRoleName);
+                if (createResult.Succeeded)
+                {
+                    user = newUser;
                 }
                 else
                 {
-                    return;
+                    throw new Exception("Something went wrong with Admin creation :(");
                 }
             }
 

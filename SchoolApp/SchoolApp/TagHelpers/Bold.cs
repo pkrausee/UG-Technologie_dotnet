@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-
-namespace SchoolApp.TagHelpers
+﻿namespace SchoolApp.TagHelpers
 {
+    using Microsoft.AspNetCore.Razor.TagHelpers;
+
     [HtmlTargetElement(Attributes = "bold")]
     public class Bold : TagHelper
     {

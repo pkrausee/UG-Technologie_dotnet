@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-
-namespace SchoolApp.TagHelpers
+﻿namespace SchoolApp.TagHelpers
 {
+    using Microsoft.AspNetCore.Razor.TagHelpers;
+
     [HtmlTargetElement(Attributes = "italic")]
     public class Italic : TagHelper
     {
