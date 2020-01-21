@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<SchoolApp.Models.Grade>
 
 @{
-    ViewData["Title"] = "Show";
+    ViewData["Title"] = "Grades";
 }
 
-Grades of @ViewBag.Student
+@ViewBag.Student
 <table class="table table-dark table-hover">
     <thead>
 
@@ -39,6 +39,11 @@ Grades of @ViewBag.Student
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Subject.Display)
+            </td>
+            <td>
+                <a asp-controller="Grades" asp-action="Edit" asp-route-id="@item.Id" bold>Edit</a> |
+                <a asp-controller="Grades"asp-action="Details" asp-route-id="@item.Id" bold>Details</a> |
+                <a asp-controller="Grades"asp-action="Delete" asp-route-id="@item.Id" bold red>Delete</a>
             </td>
         </tr>
     }
