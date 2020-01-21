@@ -1,8 +1,7 @@
-using System;
-using System.Threading.Tasks;
-
 namespace SchoolApp
 {
+    using System;
+    using Common;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Hosting;
@@ -23,7 +22,8 @@ namespace SchoolApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(
+                options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -46,6 +46,7 @@ namespace SchoolApp
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -63,63 +64,7 @@ namespace SchoolApp
                 endpoints.MapRazorPages();
             });
 
-            CreateRolesAndAdminUser(serviceProvider);
-        }
-
-        private static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
-        {
-            const string adminRoleName = "Administrator";
-            string[] roleNames = { adminRoleName, "Guest", "Teacher" };
-
-            foreach (var roleName in roleNames)
-            {
-                CreateRole(serviceProvider, roleName);
-            }
-
-            AddUserToRole(serviceProvider, adminRoleName);
-        }
-
-        private static void CreateRole(IServiceProvider serviceProvider, string roleName)
-        {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-            var roleExists = roleManager.RoleExistsAsync(roleName);
-            roleExists.Wait();
-
-            if (!roleExists.Result)
-            {
-                var roleResult = roleManager.CreateAsync(new IdentityRole(roleName));
-                roleResult.Wait();
-            }
-        }
-
-        private static void AddUserToRole(IServiceProvider serviceProvider, string adminRoleName)
-        {
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-            var checkAppUser = userManager.FindByEmailAsync("admin@admin.pl");
-            checkAppUser.Wait();
-
-            var appUser = checkAppUser.Result;
-
-            if (checkAppUser.Result == null)
-            {
-                var newAppUser = new IdentityUser
-                {
-                    Email = "admin@admin.pl",
-                    UserName = "admin@admin.pl"
-                };
-
-                var taskCreateAppUser = userManager.CreateAsync(newAppUser, "zaq1@WSX");
-                taskCreateAppUser.Wait();
-
-                if (taskCreateAppUser.Result.Succeeded)
-                {
-                    appUser = newAppUser;
-                }
-            }
-
-            var newUserRole = userManager.AddToRoleAsync(appUser, adminRoleName);
-            newUserRole.Wait();
+            RoleHelper.SetRoles(serviceProvider).Wait();
         }
     }
 }

@@ -29,8 +29,9 @@
 
         public IEnumerable<Grade> Grades { get; set; }
 
-        public string Display
-            => Name + " " + (SecondName != null ? Surname : "") + " " + Surname;
+        public string Display => Name + " " + (SecondName != null ? Surname : "") + " " + Surname;
+
+        public override string ToString() => Display;
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -38,13 +39,15 @@
 
             if (!nameRegex.IsMatch(Name) || !nameRegex.IsMatch(Surname))
             {
-                yield return new ValidationResult("Name and Surname must contain only letters and start with big case. ",
+                yield return new ValidationResult(
+                    "Name and Surname must contain only letters and start with big case. ",
                     new[] { nameof(Name), nameof(Surname) });
             }
 
             if (!string.IsNullOrWhiteSpace(SecondName) && !nameRegex.IsMatch(SecondName))
             {
-                yield return new ValidationResult("Second name must contain only letters and start with big case. ",
+                yield return new ValidationResult(
+                    "Second name must contain only letters and start with big case. ",
                     new[] { nameof(SecondName) });
             }
         }

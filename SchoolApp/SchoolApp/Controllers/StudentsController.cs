@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using SchoolApp.Data;
-using SchoolApp.Models;
-
-namespace SchoolApp.Controllers
+﻿namespace SchoolApp.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Data;
+    using Models;
+
     [Authorize]
     public class StudentsController : Controller
     {
@@ -21,13 +18,12 @@ namespace SchoolApp.Controllers
             _context = context;
         }
 
-        // GET: Students
         public async Task<IActionResult> Index()
         {
             return View(await _context.Student.ToListAsync());
         }
 
-        // GET: Students/Details/5
+        [Authorize(Roles = "Administrator, Teacher")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,6 +33,7 @@ namespace SchoolApp.Controllers
 
             var student = await _context.Student
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (student == null)
             {
                 return NotFound();
@@ -45,31 +42,31 @@ namespace SchoolApp.Controllers
             return View(student);
         }
 
-        // GET: Students/Create
+
         [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Students/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Create([Bind("Id,Name,SecondName,Surname,Email,BirthDate")] Student student)
+        public async Task<IActionResult> Create(
+            [Bind("Id,Name,SecondName,Surname,Email,BirthDate")] Student student)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(student);
+
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(student);
         }
 
-        // GET: Students/Edit/5
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -79,20 +76,20 @@ namespace SchoolApp.Controllers
             }
 
             var student = await _context.Student.FindAsync(id);
+
             if (student == null)
             {
                 return NotFound();
             }
+
             return View(student);
         }
 
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,SecondName,Surname,Email,BirthDate")] Student student)
+        public async Task<IActionResult> Edit(
+            int id, [Bind("Id,Name,SecondName,Surname,Email,BirthDate")] Student student)
         {
             if (id != student.Id)
             {
@@ -112,17 +109,16 @@ namespace SchoolApp.Controllers
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+
+                    throw;
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(student);
         }
 
-        // GET: Students/Delete/5
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -133,6 +129,7 @@ namespace SchoolApp.Controllers
 
             var student = await _context.Student
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (student == null)
             {
                 return NotFound();
@@ -141,7 +138,6 @@ namespace SchoolApp.Controllers
             return View(student);
         }
 
-        // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
@@ -149,7 +145,9 @@ namespace SchoolApp.Controllers
         {
             var student = await _context.Student.FindAsync(id);
             _context.Student.Remove(student);
+
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

@@ -1,18 +1,18 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using SchoolApp.Data;
-
-namespace SchoolApp.Controllers
+﻿namespace SchoolApp.Controllers
 {
-    [Authorize(Roles = "Administrator, Teacher")]
-    public class GradesByStudentController : Controller
+    using System.Linq;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
+    using Data;
+
+    [Authorize]
+    public class StudentGradesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public GradesByStudentController(ApplicationDbContext context)
+        public StudentGradesController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -24,7 +24,7 @@ namespace SchoolApp.Controllers
             return View();
         }
 
-        [Route("Student/Grades/Show")]
+        [Route("Student/Grade/Show")]
         public IActionResult Show(int? id)
         {
             if (id == null)
@@ -37,9 +37,7 @@ namespace SchoolApp.Controllers
                 .Include(g => g.Subject);
 
             var student = _context.Student
-                .Where(a => a.Id == id)
-                .Select(p => p.Display)
-                .FirstOrDefault();
+                .FirstOrDefault(a => a.Id == id);
 
             ViewBag.Student = student;
 

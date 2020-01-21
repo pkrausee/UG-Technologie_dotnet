@@ -12,10 +12,10 @@
         @Html.DisplayFor(modelItem => Model.Date)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => Model.Student.Email)
+        @Html.DisplayFor(modelItem => Model.Student.Display)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => Model.Subject.Description)
+        @Html.DisplayFor(modelItem => Model.Subject.Display)
     </td>
     <td>
         <a asp-action="Edit" asp-route-id="@Model.Id" bold>Edit</a> |

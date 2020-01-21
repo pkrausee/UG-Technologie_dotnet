@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace SchoolApp.TagHelpers
 {
     [HtmlTargetElement(Attributes = "bold")]
-    public class BoldTagHelper : TagHelper
+    public class Bold : TagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

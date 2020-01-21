@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace SchoolApp.TagHelpers
 {
-    [HtmlTargetElement(Attributes = "red")]
-    public class RedTagHelper : TagHelper
+    [HtmlTargetElement(Attributes = "italic")]
+    public class Italic : TagHelper
     {
-        private const string Class = "text-danger";
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.SetAttribute("class", Class);
+            output.Attributes.RemoveAll("italic");
+            output.PreContent.SetHtmlContent("<i>");
+            output.PostContent.SetHtmlContent("</i>");
         }
     }
 }
