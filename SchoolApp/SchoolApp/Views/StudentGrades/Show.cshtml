@@ -4,9 +4,12 @@
     ViewData["Title"] = "Grades";
 }
 
-@ViewBag.Student
+<div class="container-center">
+    <h2>@ViewBag.Student</h2>
+
+</div>
 <table class="table table-dark table-hover">
-    <thead>
+    <thead class="thead-dark">
 
         <tr>
             <th>
@@ -41,8 +44,8 @@
                 @Html.DisplayFor(modelItem => item.Subject.Display)
             </td>
             <td>
-                <a asp-controller="Grades" asp-action="Edit" asp-route-id="@item.Id" bold>Edit</a> |
-                <a asp-controller="Grades"asp-action="Details" asp-route-id="@item.Id" bold>Details</a> |
+                <a asp-controller="Grades" asp-action="Edit" asp-route-id="@item.Id" bold>Edit</a>
+                <a asp-controller="Grades"asp-action="Details" asp-route-id="@item.Id" bold>Details</a>
                 <a asp-controller="Grades"asp-action="Delete" asp-route-id="@item.Id" bold red>Delete</a>
             </td>
         </tr>

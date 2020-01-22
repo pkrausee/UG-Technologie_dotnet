@@ -3,45 +3,47 @@
 @{
     ViewData["Title"] = "Subject";
 }
+    <div class="container-center">
+        <h1>Subject</h1>
 
-<h1>Subject</h1>
-
-<p>
-    <a asp-action="Create">Create new Subject</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Range)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Range)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" bold>Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id" bold>Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id" bold red>Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <p>
+            <a class="create-btn" asp-action="Create">Create new Subject</a>
+        </p>
+    </div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Range)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Range)
+                        </td>
+                        <td>
+                            <a class="edit-btn" asp-action="Edit" asp-route-id="@item.Id" bold>Edit</a>
+                            <a class="details-btn" asp-action="Details" asp-route-id="@item.Id" bold>Details</a>
+                            <a class="delete-btn" asp-action="Delete" asp-route-id="@item.Id" bold red>Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>

@@ -18,8 +18,11 @@
         @Html.DisplayFor(modelItem => Model.Subject.Display)
     </td>
     <td>
-        <a asp-action="Edit" asp-route-id="@Model.Id" bold>Edit</a> |
-        <a asp-action="Details" asp-route-id="@Model.Id" bold>Details</a> |
-        <a asp-action="Delete" asp-route-id="@Model.Id" bold red>Delete</a>
+        <a class="edit-btn" asp-action="Edit" asp-route-id="@Model.Id" bold>Edit</a>
+        <a class="details-btn" asp-action="Details" asp-route-id="@Model.Id" bold>Details</a>
+        <form class="delete-form" asp-action="Delete">
+            <input type="hidden" asp-for="@Model.Id" />
+            <input type="submit" value="Delete" class="delete-btn" />
+        </form>
     </td>
 </tr>

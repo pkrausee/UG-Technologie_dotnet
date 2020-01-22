@@ -69,3 +69,282 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+div{
+    margin: 0;
+    padding: 0;
+}
+
+.my-nav {
+    background: #157C78;
+    color: white;
+    font-weight: bold;
+}
+
+.school-brand {
+    text-transform: uppercase;
+    color: white;
+    transition: all 0.3s;
+    background: #EE6C48;
+    padding: 0.2rem 0.3rem;
+    border-radius: 5rem;
+    font-size: 16px;
+    box-shadow: 0px 0px 0px 0px #15A39D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.4rem 0.2rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    height: 3rem;
+    
+}
+
+    .school-brand:hover {
+        background: #FF6439;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        box-shadow: 0px 0px 15px 0px #15A39D;
+        margin: 0.4rem 0;
+    }
+
+.center-container{
+    display: flex;
+    justify-content: center;
+}
+
+.my-container{
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    width: 100%;
+
+}
+
+.my-navbar {
+    width: 100%;
+    background: #157C78;
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr;
+    text-align: center;
+}
+.navigation {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    text-decoration: none;
+    list-style-type: none;
+    justify-content: center;
+    align-items: center;
+
+}
+    .navigation > li {
+        background: #137672;
+        margin: 0 1rem;
+        margin-top: 1rem;
+        padding: 0.2rem 0.3rem;
+        border-radius: 0.2rem;
+        transition: 0.3s all;
+        cursor: pointer;
+    }
+        .navigation > li:hover {
+            background: #105F5C;
+        }
+        .navigation > li > a {
+            color: white;
+            margin: 0 0.5rem;
+            letter-spacing: 1px;
+        }
+    .navigation > li > a:hover{
+        text-decoration: none;
+    }
+
+.navigation-login {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    text-decoration: none;
+    list-style-type: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation-profile {
+    background: #1EA6A0;
+    margin-right: 1rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+}
+    .navigation-profile > a {
+        color: white;
+        text-transform: uppercase;
+        transition: all 0.3s;
+    }
+        .navigation-profile > a:hover{
+            text-decoration: none;
+        }
+    .navigation-profile:hover {
+        background: #F9C32B;
+    }
+        .navigation-profile:hover > a {
+            color: #383732;
+        }
+
+        .navigation-log {
+            background: transparent;
+            margin-top: 1rem;
+            padding: 0.1rem 0.3rem;
+            border-radius: 2rem;
+            transition: all 0.3s;
+        }
+            .navigation-log > a{
+                color: white;
+            }
+            .navigation-log > a:hover {
+                text-decoration: none;
+            }
+
+            .navigation-log:hover {
+                background: #1EA6A0;
+            }
+
+.navigation-log-logout > button {
+    background: transparent;
+    margin-top: 1rem;
+    border: none;
+    margin-left: 1rem;
+    color: white;
+    border-radius: 2rem;
+    transition: all 0.3s;
+}
+    .navigation-log-logout > button:hover {
+        background: #1EA6A0;
+    }
+
+    .details-btn {
+        font-size: 0.7rem;
+        background: #157C78;
+        text-decoration: none;
+        border-radius: 0.2rem;
+        padding: 0.2rem 0.4rem;
+        color: white;
+        border: solid 1px #157C78;
+        transition: all 0.3s;
+    }
+    .details-btn:hover {
+        color: #157C78;
+        background: white;
+        text-decoration: none;
+    }
+
+.delete-btn > button {
+    background: #EE6C48;
+    border-radius: 0.2rem;
+    color: black;
+}
+
+.edit-btn {
+    font-size: 0.7rem;
+    background: #F9C32B;
+    text-decoration: none;
+    border-radius: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    color: #1D2327;
+    border: solid 1px #F9C32B;
+    transition: all 0.3s;
+}
+    .edit-btn:hover {
+        color: #F9C32B;
+        background: #1D2327;
+        text-decoration: none;
+    }
+
+.grades-btn {
+    font-size: 0.7rem;
+    background: #273643;
+    text-decoration: none;
+    border-radius: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    color: white;
+    border: solid 1px #273643;
+    transition: all 0.3s;
+}
+
+    .grades-btn:hover {
+        background: white;
+        color: #273643;
+        text-decoration: none;
+    }
+
+.container-center{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-btn {
+    margin: 3rem 0;
+    background: #EE6C48;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: #FFC2B1;
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 0px 0px #FFA992;
+    transition: all 0.3s;
+}
+    .create-btn:hover {
+        color: white;
+        text-decoration: none;
+        box-shadow: 0px 0px 20px 0px #FFA992;
+    }
+.information-container {
+    background: #D8E3E3;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+
+}
+
+    .information-container dt, dd {
+        padding: 0.2rem 0;
+        margin: 0;
+        background: #C9D7D6;
+        border-bottom: solid 1px #9DB6B5;
+    }
+
+
+.delete-form{
+    display: inline;
+}
+    .delete-form > input {
+        font-size: 0.7rem;
+        background: #EE6C48;
+        text-decoration: none;
+        border-radius: 0.2rem;
+        padding: 0.2rem 0.4rem;
+        color: white;
+        border: solid 1px #EE6C48;
+        transition: all 0.3s;
+        font-weight: bold;
+    }
+        .delete-form > input:hover {
+            color: #EE6C48;
+            background: white;
+            text-decoration: none;
+        }
+
